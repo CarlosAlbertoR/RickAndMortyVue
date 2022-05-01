@@ -15,22 +15,34 @@
 <script>
 import { computed, onMounted } from "@vue/runtime-core";
 import { useStore } from "vuex";
-import CardCharacter from "@/components/CardCharacter.vue";
 
+import CardCharacter from "@/components/CardCharacter";
 export default {
-  components: { CardCharacter },
+  components: {
+    CardCharacter,
+  },
   setup() {
     const store = useStore();
     const characters = computed(() => {
       return store.state.charactersFilter;
     });
+
     onMounted(() => {
       store.dispatch("getCharacters");
     });
 
-    return { characters };
+    return {
+      characters,
+    };
   },
 };
 </script>
 
-<style></style>
+<style lang="scss">
+.characters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 3rem;
+  margin: 3rem 0;
+}
+</style>
